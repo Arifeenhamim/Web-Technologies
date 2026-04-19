@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Validation - Name, Age, Pass, Email, Phone</title>
+    <title>PHP Form Validation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <h2>Registration Form with PHP Validation</h2>
+    <h2>Registration Form - PHP Validation</h2>
 
     <?php
     // Variables
@@ -39,7 +39,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        // ==================== NAME ====================
+        // Name
         if (empty($_POST["name"])) {
             $nameErr = "Name is required";
         } else {
@@ -49,7 +49,7 @@
             }
         }
 
-        // ==================== AGE ====================
+        // Age
         if (empty($_POST["age"])) {
             $ageErr = "Age is required";
         } else {
@@ -61,7 +61,7 @@
             }
         }
 
-        // ==================== EMAIL ====================
+        // Email
         if (empty($_POST["email"])) {
             $emailErr = "Email is required";
         } else {
@@ -71,17 +71,17 @@
             }
         }
 
-        // ==================== PASSWORD ====================
+        // Password
         if (empty($_POST["password"])) {
             $passwordErr = "Password is required";
         } else {
             $password = $_POST["password"];
             if (strlen($password) < 8) {
-                $passwordErr = "Password must be at least 8 characters long";
+                $passwordErr = "Password must be at least 8 characters";
             }
         }
 
-        // ==================== PHONE ====================
+        // Phone
         if (empty($_POST["phone"])) {
             $phoneErr = "Phone number is required";
         } else {
@@ -91,23 +91,20 @@
             }
         }
 
-        // Check if everything is correct
+        // Success check
         if (empty($nameErr) && empty($ageErr) && empty($emailErr) && empty($passwordErr) && empty($phoneErr)) {
-            $success = "✅ Form submitted successfully! All validations passed.";
-            // You can save data to database here
+            $success = "✅ Form submitted successfully! All fields are valid.";
         }
     }
 
-    // Function to clean input data
+    // Simplified test_input function (only trim)
     function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
+        $data = trim($data);        // Only remove extra spaces
         return $data;
     }
     ?>
 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
 
         <label>Name:</label><br>
         <input type="text" name="name" value="<?php echo $name; ?>" required>
@@ -129,7 +126,7 @@
         <input type="text" name="phone" maxlength="11" value="<?php echo $phone; ?>" required>
         <span class="error">* <?php echo $phoneErr; ?></span><br><br>
 
-        <input type="submit" value="Submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+        <input type="submit" value="Submit" style="padding: 12px 25px; font-size: 16px;">
     </form>
 
     <?php if ($success) echo "<p class='success'>$success</p>"; ?>
